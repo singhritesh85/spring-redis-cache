@@ -1,0 +1,68 @@
+package com.springredis.cache.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+import com.springredis.cache.dto.ProductDTO;
+import com.springredis.cache.exceptions.DataNotFoundException;
+import com.springredis.cache.repository.ProductRepository;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class ProductService {
+	
+	@Autowired
+	private ProductRepository productRepository;
+	
+	
+	public void createProduct(ProductDTO productDTO) {
+		
+		this.productRepository.save(productDTO);
+		
+	}
+	
+	@Cacheable(value = "product", key = "#productId")
+	public ProductDTO getProduct(Integer productId) throws DataNotFoundException {
+		
+		log.info("Calling DB to fetch product");
+		
+		Optional<ProductDTO> productDTO = this.productRepository.findById(productId);
+		
+		if( !productDTO.isEmpty()) {
+			
+			return productDTO.get();
+			
+		}
+			
+		
+		throw new DataNotFoundException("Product not available");
+		
+	}
+	
+	//@CachePut(value = "product", key = "#productId")
+	public ProductDTO updateProduct(ProductDTO productDTO) {
+		
+		if (productRepository.existsById(productDTO.getProductId())) {
+			
+			log.info("update in DB");
+			this.productRepository.save(productDTO);
+			return productDTO;
+		}
+			
+		
+	 throw new DataNotFoundException("Product not available");
+		
+	}
+	
+	public void deleteProduct(Integer productId) {
+		
+		this.productRepository.deleteById(productId);
+		
+	}
+}
