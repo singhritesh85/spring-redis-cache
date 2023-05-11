@@ -3,6 +3,7 @@ package com.springredis.cache.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class ProductService {
 		
 	}
 	
-	//@CachePut(value = "product", key = "#productId")
+	@CachePut(value = "product", key = "#productDTO.productId")
 	public ProductDTO updateProduct(ProductDTO productDTO) {
 		
 		if (productRepository.existsById(productDTO.getProductId())) {
@@ -60,7 +61,14 @@ public class ProductService {
 		
 	}
 	
-	public void deleteProduct(Integer productId) {
+	@CacheEvict(cacheNames="product", key="#productId") 
+	public void deleteProduct(Integer productId) throws DataNotFoundException {
+		
+		if (!this.productRepository.existsById(productId)) {
+			
+			
+			 throw new DataNotFoundException("Product not available");
+		}
 		
 		this.productRepository.deleteById(productId);
 		

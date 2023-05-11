@@ -30,7 +30,7 @@ public class ProductController {
 	
 	
 	@PostMapping()
-	public void addProduct(@RequestBody ProductDTO productDTO) throws DataNotFoundException {
+	public void addProduct(@RequestBody ProductDTO productDTO) {
 		
 			 productService.createProduct(productDTO);
 	}
