@@ -45,12 +45,14 @@ public class ProductService {
 		
 	}
 	
-	@CachePut(value = "product", key = "#productDTO.productId")
-	public ProductDTO updateProduct(ProductDTO productDTO) {
+	//@CachePut(value = "product", key = "#productDTO.productId")
+	@CachePut(value = "product", key = "#productId")
+	public ProductDTO updateProduct(Integer productId, ProductDTO productDTO) {
 		
-		if (productRepository.existsById(productDTO.getProductId())) {
+		if (productRepository.existsById(productId)) {
 			
 			log.info("update in DB");
+			productDTO.setProductId(productId);
 			this.productRepository.save(productDTO);
 			return productDTO;
 		}

@@ -23,11 +23,10 @@ public class ProductController {
 	private ProductService productService;
 	
 	@GetMapping(path = "/{productid}")
-	public ProductDTO getProductById(@PathVariable String productid) throws DataNotFoundException {
+	public ProductDTO getProductById(@PathVariable(name = "productid") String productId) throws DataNotFoundException {
 		
-			return productService.getProduct(Integer.parseInt(productid));
+			return productService.getProduct(Integer.parseInt(productId));
 	}
-	
 	
 	@PostMapping()
 	public void addProduct(@RequestBody ProductDTO productDTO) {
@@ -35,10 +34,10 @@ public class ProductController {
 			 productService.createProduct(productDTO);
 	}
 	
-	@PatchMapping()
-	public void updateProduct(@RequestBody ProductDTO productDTO) throws DataNotFoundException {
+	@PatchMapping(path = "/{productid}")
+	public void updateProduct(@PathVariable(name = "productid") String productId, @RequestBody ProductDTO productDTO) throws DataNotFoundException {
 		
-			 productService.updateProduct(productDTO);
+			 productService.updateProduct(Integer.parseInt(productId), productDTO);
 	}
 	
 	@DeleteMapping(path = "/{productid}")
