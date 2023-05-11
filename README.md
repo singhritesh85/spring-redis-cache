@@ -62,7 +62,7 @@ INSERT INTO ITEMS VALUES (10004, 'Kelloggs Corn Flakes Real Almond Honey', 'Kell
 
 
 ### Update Product
-```` curl --location --request PATCH 'http://localhost:8080/products' --header 'Content-Type: application/json' --data-raw '{"productId": 20000,"productName": "Kelloggs Crunchy Granola Almonds 1 Kg","productDescription": "Kelloggs Crunchy Granola Almonds and Cranberries","type":"Breakfast Cereals","price": 330,"quantity": 1,"version": 1}' ````
+```` curl --location --request PATCH 'http://localhost:8080/products/20000' --header 'Content-Type: application/json' --data-raw '{"productId": 20000,"productName": "Kelloggs Crunchy Granola Almonds 1 Kg","productDescription": "Kelloggs Crunchy Granola Almonds and Cranberries","type":"Breakfast Cereals","price": 330,"quantity": 1,"version": 1}' ````
 
 ### Get Product
 ````curl --location --request GET 'http://localhost:8080/products/20000' ````
