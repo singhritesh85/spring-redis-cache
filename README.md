@@ -3,7 +3,7 @@ Application showcasing simple write through cache implementation using spring-re
 
 ```@Cacheable(value = "product", key = "#productId")```
 
-```@CachePut(value = "product", key = "#productDTO.productId")```
+```@CachePut(value = "product", key = "#productId")```
 
   ```@CacheEvict(cacheNames="product", key="#productId") ```
   
