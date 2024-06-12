@@ -1,4 +1,6 @@
-**Provide the hostname, port and primary key for Azure Redis in the file present at the location src/main/java/com/springredis/cache/SpringRedisCacheApplication.java**
+```
+Provide the hostname, port and primary key for Azure Redis in the file present at the location src/main/java/com/springredis/cache/SpringRedisCacheApplication.java
+```
 <br><br/>
 <br><br/>
 # spring-redis-cache
