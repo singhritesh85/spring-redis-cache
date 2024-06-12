@@ -30,20 +30,27 @@ public class SpringRedisCacheApplication {
 		SpringApplication.run(SpringRedisCacheApplication.class, args);
 	}
 	
-	@Bean
-	  JedisConnectionFactory redisConnectionFactory() {
+//	@Bean
+//	  JedisConnectionFactory redisConnectionFactory() {
 		
-		if (isClustered) {
+//		if (isClustered) {
 			
 			//List<String> nodes = Collections.singletonList("****.***.****.****.cache.amazonaws.com:6379");
-			RedisClusterConfiguration clusterConfiguration = new RedisClusterConfiguration( nodes );
-		    return new JedisConnectionFactory(clusterConfiguration);
+//			RedisClusterConfiguration clusterConfiguration = new RedisClusterConfiguration( nodes );
+//		    return new JedisConnectionFactory(clusterConfiguration);
 			
-		}
+//		}
 		
 		// does not make sense to inject localhost host or loopback ip
-		return new JedisConnectionFactory(new RedisStandaloneConfiguration("127.0.0.1", 6379));
-	  }
+//		return new JedisConnectionFactory(new RedisStandaloneConfiguration("127.0.0.1", 6379));
+//	  }
+
+	  @Bean
+          JedisConnectionFactory redisConnectionFactory() {
+            RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration("dexter2024.redis.cache.windows.net", 6379);
+            redisStandaloneConfiguration.setPassword("48AXXXXXXXXXHuXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXAvQ=");
+            return new JedisConnectionFactory(redisStandaloneConfiguration);
+          }
 
 	  @Bean
 	  RedisTemplate<String, String> redisTemplate() {
